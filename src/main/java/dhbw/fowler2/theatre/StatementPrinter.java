@@ -8,11 +8,8 @@ public class StatementPrinter {
     public String print(Invoice invoice) {
         var result = String.format("Statement for %s\n", invoice.customer);
         for (var aPerformance : invoice.performances) {
-            var aPlay = aPerformance.getPlay();
-            var thisAmount = getAmountFor(aPerformance);
-
             // print line for this order
-            result += String.format("  %s: %s (%s seats)\n", aPlay.name, usd(thisAmount / 100), aPerformance.audience);
+            result += String.format("  %s: %s (%s seats)\n", aPerformance.getPlay().name, usd(getAmountFor(aPerformance) / 100), aPerformance.audience);
         }
         result += String.format("Amount owed is %s\n", usd(getTotalAmountFor(invoice) / 100));
         result += String.format("You earned %s credits\n", getTotalVolumeCreditsFor(invoice));
@@ -55,8 +52,7 @@ public class StatementPrinter {
     private int getTotalAmountFor(Invoice invoice){
         var result = 0;
         for (var aPerformance : invoice.performances) {
-            var thisAmount = getAmountFor(aPerformance);
-            result += thisAmount;
+            result += getAmountFor(aPerformance);
         }
         return result;
     }
