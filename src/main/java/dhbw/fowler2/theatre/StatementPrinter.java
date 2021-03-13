@@ -6,17 +6,7 @@ import java.util.Locale;
 public class StatementPrinter {
 
     public String print(Invoice invoice) {
-        var totalAmount = 0;
-        var volumeCredits = 0;
         var result = String.format("Statement for %s\n", invoice.customer);
-
-        for (var aPerformance : invoice.performances) {
-            volumeCredits += getVolumeCreditsFor(aPerformance);
-        }
-        for (var aPerformance : invoice.performances) {
-            var thisAmount = getAmountFor(aPerformance);
-            totalAmount += thisAmount;
-        }
         for (var aPerformance : invoice.performances) {
             var aPlay = aPerformance.getPlay();
             var thisAmount = getAmountFor(aPerformance);
@@ -24,8 +14,8 @@ public class StatementPrinter {
             // print line for this order
             result += String.format("  %s: %s (%s seats)\n", aPlay.name, usd(thisAmount / 100), aPerformance.audience);
         }
-        result += String.format("Amount owed is %s\n", usd(totalAmount / 100));
-        result += String.format("You earned %s credits\n", volumeCredits);
+        result += String.format("Amount owed is %s\n", usd(getTotalAmountFor(invoice) / 100));
+        result += String.format("You earned %s credits\n", getTotalVolumeCreditsFor(invoice));
         return result;
     }
 
@@ -59,6 +49,23 @@ public class StatementPrinter {
         result += Math.max(aPerformance.audience - 30, 0);
         // add extra credit for every ten comedy attendees
         if ("comedy" == aPerformance.getPlay().type) result += Math.floor(aPerformance.audience / 5);
+        return result;
+    }
+
+    private int getTotalAmountFor(Invoice invoice){
+        var result = 0;
+        for (var aPerformance : invoice.performances) {
+            var thisAmount = getAmountFor(aPerformance);
+            result += thisAmount;
+        }
+        return result;
+    }
+
+    private int getTotalVolumeCreditsFor(Invoice invoice){
+        var result = 0;
+        for (var aPerformance : invoice.performances) {
+            result += getVolumeCreditsFor(aPerformance);
+        }
         return result;
     }
 
