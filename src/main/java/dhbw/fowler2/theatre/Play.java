@@ -7,4 +7,7 @@ public abstract class Play {
     public Play(String name) {
         this.name = name;
     }
+
+    public abstract PerformanceCalculator createPerformanceCalculator(Performance aPerformance);
+
 }

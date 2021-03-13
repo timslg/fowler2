@@ -6,4 +6,9 @@ public class Comedy extends Play {
         super(name);
     }
 
+    @Override
+    public PerformanceCalculator createPerformanceCalculator(Performance aPerformance) {
+        return new ComedyCalculator(aPerformance);
+    }
+
 }

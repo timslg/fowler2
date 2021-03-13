@@ -6,4 +6,9 @@ public class Tragedy extends Play {
         super(name);
     }
 
+    @Override
+    public PerformanceCalculator createPerformanceCalculator(Performance aPerformance) {
+        return new TragedyCalculator(aPerformance);
+    }
+
 }

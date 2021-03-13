@@ -9,17 +9,6 @@ public class PerformanceCalculator {
         this.aPerformance = aPerformance;
     }
 
-    public static PerformanceCalculator createPerformanceCalculator(Performance aPerformance) {
-        switch (aPerformance.getPlay().getClass().getSimpleName()) {
-            case "Tragedy":
-                return new TragedyCalculator(aPerformance);
-            case "Comedy":
-                return new ComedyCalculator(aPerformance);
-            default:
-                throw new Error("unknown type: " + aPerformance.getPlay().getClass().getSimpleName());
-        }
-    }
-
     public int getAmount(){
         throw new Error("sub-classes responsibility");
     }
