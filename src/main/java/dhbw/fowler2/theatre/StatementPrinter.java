@@ -14,10 +14,7 @@ public class StatementPrinter {
             var aPlay = aPerformance.getPlay();
             var thisAmount = getAmountFor(aPerformance);
 
-            // add volume credits
-            volumeCredits += Math.max(aPerformance.audience - 30, 0);
-            // add extra credit for every ten comedy attendees
-            if ("comedy" == aPlay.type) volumeCredits += Math.floor(aPerformance.audience / 5);
+            volumeCredits += getVolumeCreditsFor(aPerformance);
 
             // print line for this order
             result += String.format("  %s: %s (%s seats)\n", aPlay.name, usd(thisAmount / 100), aPerformance.audience);
@@ -49,6 +46,15 @@ public class StatementPrinter {
                 throw new Error("unknown type: ${play.type}");
         }
 
+        return result;
+    }
+
+    private double getVolumeCreditsFor(Performance aPerformance){
+        var result = 0;
+        // add volume credits
+        result += Math.max(aPerformance.audience - 30, 0);
+        // add extra credit for every ten comedy attendees
+        if ("comedy" == aPerformance.getPlay().type) result += Math.floor(aPerformance.audience / 5);
         return result;
     }
 
