@@ -9,28 +9,13 @@ public class StatementPrinter {
         var result = String.format("Statement for %s\n", invoice.customer);
         for (var aPerformance : invoice.performances) {
             // print line for this order
-            result += String.format("  %s: %s (%s seats)\n", aPerformance.getPlay().name, usd(getAmountFor(aPerformance) / 100), aPerformance.audience);
+            result += String.format("  %s: %s (%s seats)\n", aPerformance.getPlay().name, usd(aPerformance.getAmount()/ 100), aPerformance.audience);
         }
-        result += String.format("Amount owed is %s\n", usd(getTotalAmountFor(invoice) / 100));
-        result += String.format("You earned %s credits\n", getTotalVolumeCreditsFor(invoice));
+        result += String.format("Amount owed is %s\n", usd(invoice.getTotalAmount() / 100));
+        result += String.format("You earned %s credits\n", invoice.getTotalVolumeCredits());
         return result;
     }
 
-    private int getAmountFor(Performance aPerformance){
-    return aPerformance.getAmount();
-    }
-
-    private double getVolumeCreditsFor(Performance aPerformance){
-        return aPerformance.getVolumeCredits();
-    }
-
-    private int getTotalAmountFor(Invoice invoice){
-       return invoice.getTotalAmount();
-    }
-
-    private int getTotalVolumeCreditsFor(Invoice invoice){
-        return invoice.getTotalVolumeCredits();
-    }
 
     private String usd(long aNumber){
         return NumberFormat.getCurrencyInstance(Locale.US).format(aNumber);
