@@ -10,18 +10,18 @@ public class PerformanceCalculator {
     }
 
     public static PerformanceCalculator createPerformanceCalculator(Performance aPerformance) {
-        switch (aPerformance.getPlay().type) {
-            case "tragedy":
+        switch (aPerformance.getPlay().getClass().getSimpleName()) {
+            case "Tragedy":
                 return new TragedyCalculator(aPerformance);
-            case "comedy":
+            case "Comedy":
                 return new ComedyCalculator(aPerformance);
             default:
-                throw new Error("unknown type: " + aPerformance.getPlay().type);
+                throw new Error("unknown type: " + aPerformance.getPlay().getClass().getSimpleName());
         }
     }
 
     public int getAmount(){
-        throw new Error("unknown type: " + aPerformance.getPlay().type);
+        throw new Error("sub-classes responsibility");
     }
 
     public double getVolumeCredits(){

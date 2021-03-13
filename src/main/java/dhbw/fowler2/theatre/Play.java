@@ -1,12 +1,10 @@
 package dhbw.fowler2.theatre;
 
-public class Play {
+public abstract class Play {
 
     public String name;
-    public String type;
 
-    public Play(String name, String type) {
+    public Play(String name) {
         this.name = name;
-        this.type = type;
     }
 }

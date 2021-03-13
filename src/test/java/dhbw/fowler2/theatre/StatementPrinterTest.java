@@ -11,9 +11,9 @@ public class StatementPrinterTest {
 
     @Before
     public void initialize(){
-        plays = List.of(new Play("Hamlet", "tragedy"),
-                new Play("As You Like It", "comedy"),
-                new Play("Othello", "tragedy"));
+        plays = List.of(new Tragedy("Hamlet"),
+                new Comedy("As You Like It"),
+                new Tragedy("Othello"));
     }
 
     @Test
