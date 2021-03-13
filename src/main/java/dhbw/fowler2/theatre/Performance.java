@@ -15,10 +15,10 @@ public class Performance {
     }
 
     public int getAmount() {
-        return new PerformanceCalculator(this).getAmount();
+        return PerformanceCalculator.createPerformanceCalculator(this).getAmount();
     }
 
     public double getVolumeCredits() {
-        return new PerformanceCalculator(this).getVolumeCredits();
+        return PerformanceCalculator.createPerformanceCalculator(this).getVolumeCredits();
     }
 }
