@@ -10,8 +10,6 @@ public class StatementPrinter {
         var volumeCredits = 0;
         var result = String.format("Statement for %s\n", invoice.customer);
 
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
-
         for (var aPerformance : invoice.performances) {
             var aPlay = aPerformance.getPlay();
             var thisAmount = getAmountFor(aPerformance);
@@ -22,10 +20,10 @@ public class StatementPrinter {
             if ("comedy" == aPlay.type) volumeCredits += Math.floor(aPerformance.audience / 5);
 
             // print line for this order
-            result += String.format("  %s: %s (%s seats)\n", aPlay.name, currencyFormat.format(thisAmount / 100), aPerformance.audience);
+            result += String.format("  %s: %s (%s seats)\n", aPlay.name, usd(thisAmount / 100), aPerformance.audience);
             totalAmount += thisAmount;
         }
-        result += String.format("Amount owed is %s\n", currencyFormat.format(totalAmount / 100));
+        result += String.format("Amount owed is %s\n", usd(totalAmount / 100));
         result += String.format("You earned %s credits\n", volumeCredits);
         return result;
     }
@@ -54,4 +52,7 @@ public class StatementPrinter {
         return result;
     }
 
+    private String usd(long aNumber){
+        return NumberFormat.getCurrencyInstance(Locale.US).format(aNumber);
+    }
 }
