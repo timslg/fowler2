@@ -8,7 +8,7 @@ public class StatementPrinter {
     }
 
     public String printHtml(Invoice invoice) {
-        return null;
+        return new HtmlStatement(invoice).value();
     }
 
 }
